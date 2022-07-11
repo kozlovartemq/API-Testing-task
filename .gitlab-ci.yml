@@ -12,7 +12,7 @@ docker_job: # job прогона тестов
   before_script:
     - pip install -r requirements.txt       # Устанавка пакетов в поднятом контейнере перед запуском самих тестов
   script:
-    - pytest -n 4 --dist loadfile --alluredir=./allure-results # Запуск тестов параллельно
+    - pytest --alluredir=./allure-results # Запуск тестов
   allow_failure: true # Продолжить выполнение пайплайна в случае, если тесты упали.
   artifacts: # Сущность, с помощью которой, сохранится результат тестирования.
     when: always # Сохранять всегда
@@ -25,7 +25,7 @@ history_job: # job сохранения прошлых результатов
     - docker
   image: storytel/alpine-bash-curl # Образ, для того чтобы скачать результаты теста из предыдущего пайплайна
   script:
-    - 'curl --location --output artifacts.zip "https://gitlab.com/api/v4/projects/37726296/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"'  # С помощью api гитлаба скачиваем файлы из pages
+    - 'curl --location --output artifacts.zip "https://gitlab.com/api/v4/projects/37728454/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"'  # С помощью api гитлаба скачиваем файлы из pages
     - apk add unzip # Добавление в контейнер утилиты unzip (т.к. ее нет в образе)
     - unzip artifacts.zip # Распаковывка файлов
     - chmod -R 777 public # Полный доступ к содержиму
