@@ -19,6 +19,7 @@
 
 **requirements.txt** — requirements file
 
+**.gitlab-ci.yml** — yaml file that contains instructions for gitlab-runner
 
 # Prerequisites
 
@@ -62,3 +63,11 @@ If tests were run with --alluredir="allure-results" option, it is possible to ge
     allure serve allure-results
 
 Allure documentation can be found at https://docs.qameta.io/allure/
+
+# Gitlab CI
+
+A pipline contains 4 jobs:
+- Testing in a Docker container
+- Coping history from the last pipline
+- Making an allure report
+- Pushing an allure report at Gitlab Pages
